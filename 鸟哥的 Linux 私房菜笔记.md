@@ -56,7 +56,7 @@
 ## 6.4 文件与目录的默认权限与隐藏权限
 ### 6.4.1 文件默认权限：umask
 ```bash
-[root@study ~]# umask -S
+[root@study ~]$ umask -S
 u=rwx,g=rx,o=rx
 ```
 ### 6.4.2 文件隐藏属性
@@ -102,9 +102,38 @@ whereis 主要是针对 /bin /sbin 下面的可执行文件， 以及 /usr/share
 ## 10.2 Shell 的变量功能
 ### 10.2.2 变量的取用与设置：echo, 变量设置规则, unset
 ```bash
-[root@study ~]# version=$(uname -r)
-[root@study ~]# version=`uname -r`
+[root@study ~]$ version=$(uname -r)
+[root@study ~]$ version=`uname -r`
 ```
 ### 10.2.3 环境变量的功能
 export 自定变量转成环境变量
 ### 10.2.6 变量键盘读取、阵列与宣告： read, array, declare
+```bash
+# 阵列
+[root@study ~]$ var['abc']=1
+[root@study ~]$ echo ${var['abc']}
+1
+```
+### 10.2.7 与文件系统及程序的限制关系： ulimit
+### 10.2.8 变量内容的删除、取代与替换 （Optional）
+## 10.3 命令别名与历史命令
+### 10.3.1 命令别名设置： alias, unalias
+```bash
+[dmtsai@study ~]$ alias lm='ls -al | more'
+```
+### 10.3.2 历史命令：history
+## 10.4 Bash Shell 的操作环境
+### 10.4.1 路径与指令搜寻顺序
+- 以相对/绝对路径执行指令，例如“ /bin/ls ”或“ ./ls ”；
+- 由 alias 找到该指令来执行；
+- 由 bash 内置的 （builtin） 指令来执行；
+- 通过 $PATH 这个变量的顺序搜寻到的第一个指令来执行。  
+
+本节内容跟环境变量有关。。。未看完
+## 10.5 数据流重导向
+### 10.5.1 什么是数据流重导向
+```bash
+[dmtsai@study ~]$ find /home -name .bashrc 2> /dev/null
+```
+### 10.5.2 命令执行的判断依据： ; , &&, ||
+## 10.6 管线命令 （pipe）

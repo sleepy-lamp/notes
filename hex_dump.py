@@ -15,7 +15,6 @@ def hex_dump(data, newline="\n"):
     offset = 0
 
     for index, item in enumerate(hex_list):
-
         print(
             '%6X : %s [%s]' % (
                 offset,
@@ -26,4 +25,5 @@ def hex_dump(data, newline="\n"):
         offset += width
 
 
-hex_dump("hello world!!!hello world!!!hello world!!!hello world!!!hello world!!!hello world!!!" + chr(0x19))
+hex_dump("hello" + chr(0x18) +
+         " world!!!hello world!!!hello world!!!hello world!!!hello world!!!hello world!!!" + chr(0x19))
