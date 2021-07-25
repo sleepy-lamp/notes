@@ -1,0 +1,15 @@
+{
+    "require": {
+        "psr/http-server-handler": "^1.0",
+        "psr/http-server-middleware": "^1.0",
+        "laminas/laminas-diactoros": "^2.6",
+        "illuminate/container": "^8.51",
+        "psr/event-dispatcher": "^1.0"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "PsrImplement\\": "PSR-implement"
+        }
+    }
+}
