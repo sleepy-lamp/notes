@@ -38,7 +38,11 @@ xdebug.trigger_value = my_trigger_value
 ```
 
 ### 1.1.3 验证
-上述配置好之后，在 vscode 中打好断点并启动监听，启动你的 web 服务，在浏览器 / postman 中访问，就可以断点调试了。浏览器 / postman 中访问时须在 Query String 或 FormData 或 COOKIE 中带上 TRIGGER_VALUE=my_trigger_value 的参数。
+上述配置好之后，在 vscode 中打好断点并启动监听，启动你的 web 服务，在浏览器 / postman 中访问，就可以断点调试了。浏览器 / postman 中访问时须在 Query String 或 FormData 或 COOKIE 中带上 XDEBUG_TRIGGER=my_trigger_value 的参数。
+
+本节参考链接：  
+PHP Debug 插件 <https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug>  
+Xdebug 文档 <https://xdebug.org/docs/profiler>
 
 
 ## 1.2 依赖注入
