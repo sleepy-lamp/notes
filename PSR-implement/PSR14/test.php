@@ -10,7 +10,7 @@ header('Content-type: text/plain');
 $listenerProvider = new ListenerProvider();
 
 // 分发器
-$dispather = new EventDispatcher($listenerProvider);
+$dispatcher = new EventDispatcher($listenerProvider);
 
 // 登出事件
 class LogoutEvent {}
@@ -41,7 +41,7 @@ $listenerProvider->listen(LogoutEvent::class, [$listenerSet, 'listenerB']);
 $listenerProvider->listen(LogoutEvent::class, [$listenerSet, 'listenerC']);
 
 // 发射器
-$dispather->dispatch(new LogoutEvent());
+$dispatcher->dispatch(new LogoutEvent());
 
 
 

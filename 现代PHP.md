@@ -1,10 +1,46 @@
 # 第一章 &nbsp; PHP 之道
 ## 1.0 介绍
-PHP 之道是介绍最新的 PHP 最佳实践的网站，最新的中文版网址是 <http://phptherightway.p2hp.com/>
+PHP 之道是介绍最新的 PHP 最佳实践的网站，其网址是 <https://phptherightway.com/>。最新的中文版网址是 <http://phptherightway.p2hp.com/>
 
 本章介绍 PHP 之道中值得关注的概念。
 
 ## 1.1 XDebug
+受制于时间，精力以及作者的水平，本节只介绍 vscode + Xdebug3 的远程断点调试。
+
+### 1.1.1 vscode 配置
+
+在 vscode 中安装 PHP Debug 插件，点击左侧调试图标，编辑 launch.json 文件，配置如下：
+```json
+"configurations": [
+    {
+        "name": "Listen for Xdebug",
+        "type": "php",
+        "request": "launch",
+        "port": 9003,
+        "pathMappings": {
+            "/home/zhanglihui/www/notes": "${workspaceFolder}",
+        }
+    }
+]
+```
+其中，port 是监听 Xdebug 的端口，pathMapping 是远程文件和本地文件的映射，本地调试无需配置此映射。
+
+### 1.1.2 Xdebug 配置
+安装好 Xdebug3 后，调整关键配置如下:
+```ini
+; debug 模式可以断点跟踪
+xdebug.mode = debug
+; Xdebug 将连接此 IP 进行调试
+xdebug.client_host = x.x.x.x
+; 9003 是默认端口
+xdebug.client_port = 9003
+xdebug.trigger_value = my_trigger_value
+```
+
+### 1.1.3 验证
+上述配置好之后，在 vscode 中打好断点并启动监听，启动你的 web 服务，在浏览器 / postman 中访问，就可以断点调试了。浏览器 / postman 中访问时须在 Query String 或 FormData 或 COOKIE 中带上 TRIGGER_VALUE=my_trigger_value 的参数。
+
+
 ## 1.2 依赖注入
 <http://phptherightway.p2hp.com/#dependency_injection>
 ## 1.3 错误和异常
@@ -21,7 +57,7 @@ PHP 之道是介绍最新的 PHP 最佳实践的网站，最新的中文版网�
 > 图中的顺序为按照 Middleware 1 -> Middleware 2 -> Middleware 3 的顺序组织着，我们可以注意到当中间的横线穿过 内核 即 Middleware 3 后，又回到了 Middleware 2，为一个嵌套模型，那么实际的顺序其实就是：Request -> Middleware 1 -> Middleware 2 -> Middleware 3 -> Middleware 2 -> Middleware 1 -> Response 重点放在 核心 即 Middleware 3，它是洋葱的分界点，分界点前面的部分其实都是基于 请求(Request) 进行处理，而经过了分界点时，内核 就产出了 响应(Response) 对象，也是 内核 的主要代码目标，在之后便是对 响应(Response) 进行处理了，内核 通常是由框架负责实现的，而其它的就由您来编排了。  
 
 基于 PSR-15 的中间件实现  
-参考代码：PSR-implement/PSR15/test.php  
+参考代码：PSR-implement/PSR15/test.php
 
 参考链接：  
 PSR-15 <https://learnku.com/docs/psr/psr-15-request-handlers/1626>  
@@ -34,7 +70,7 @@ mezzio 中间件框架 <https://docs.mezzio.dev/mezzio/v3/getting-started/featur
 
 illuminate/container 不仅提供了 PSR-11 规范的 has 和 get 方法，还提供了丰富的服务绑定、服务创建以及服务方法调用的功能。以下举例说明 illuminate/container 的用法。
 
-+ 在注入服务之前，必须先绑定服务到容器。illuminate/container 的 make 方法可以自动将服务注入到建构方法：
++ 在注入之前，必须先绑定服务到容器。illuminate/container 的 make 方法可以自动将服务注入到建构方法：
 ```php
 use Illuminate\Container\Container;
 use PsrImplement\PSR11\Service\ApiFetch;
@@ -96,6 +132,8 @@ PSR-11 说明文档 <https://learnku.com/docs/psr/psr-11-container-meta/1622>
 
 ### 2.1.3 服务提供者
 有些框架将容器叫做服务管理器。执行服务提供者，会将服务类或对象绑定到容器中。在有的框架中，便于直接绑定的服务在配置文件中直接指定，需要执行一些特定方法才能绑定的服务，可以在服务提供者中绑定。服务提供者的本质是将特定的服务绑定到容器中。
+
+下面的例子中，由于 Router 服务在创建时需要指定其配置文件的位置，因此，这里手动创建好 Router 对象，再将这个对象绑定到容器。将这个创建过程放到回调中，就可以在真正需要 Router 对象的时候才创建它，以节省资源。
 
 ```php
 public function register()
