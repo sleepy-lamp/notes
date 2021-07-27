@@ -1,17 +1,72 @@
 <?php
+// declare(strict_types=1);
+// error_reporting(E_ALL);
 
-error_reporting(E_ALL & ~E_NOTICE);
+
+// set_error_handler(
+
+//     function (int $errno, string $errstr, string $errfile, int $errline): void {
+//         if (!(error_reporting() & $errno)) {
+//             // error_reporting does not include this error
+//             return;
+//         }
+
+//         var_dump($errno);
+
+//         throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 
 
-set_error_handler(
+//         // echo 'error_handle';
+//     }
+// );
+// echo $a; 
 
-    function (int $errno, string $errstr, string $errfile, int $errline): void {
-        if (! (error_reporting() & $errno)) {
-            // error_reporting does not include this error
-            return;
-        }
+// set_exception_handler(function(){echo 'exception handle';});
 
-        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+// try {
+// (function(string $a){
+//     var_dump($a);
+// })(1, 2);
+// } catch(Error $e) {
+//     var_dump($e);
+// }
+
+// echo 123;
+
+// spl_autoload_register(function($name) {
+//     var_dump($name);
+    // require 'demo1.php';
+// });
+
+// try {
+//     new A();
+//     demo1();
+// } catch (Throwable $e) {
+//     var_dump($e);
+// }
+
+// $a = 1;
+
+// phpinfo();
+
+
+$a = new Class {
+    protected $pro;
+    public function dumpPro()
+    {
+        var_dump($this->pro);
     }
-);
-echo $a;
+};
+
+$modifyPro = function() {
+    $this->pro = 'modified';
+    return 'return';
+};
+
+$b = $modifyPro->call($a);
+
+var_dump($a);
+
+$a->dumpPro();
+
+

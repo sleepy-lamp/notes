@@ -4,8 +4,8 @@ PHP 之道是介绍最新的 PHP 最佳实践的网站，其网址是 <https://p
 
 本章介绍 PHP 之道中值得关注的概念。
 
-## 1.1 XDebug
-受制于时间，精力以及作者的水平，本节只介绍 vscode + Xdebug3 的远程断点调试。
+## 1.1 Xdebug
+受制于时间、精力以及作者的水平，本节只介绍 vscode + Xdebug3 的断点调试。
 
 ### 1.1.1 vscode 配置
 
@@ -28,7 +28,7 @@ PHP 之道是介绍最新的 PHP 最佳实践的网站，其网址是 <https://p
 ### 1.1.2 Xdebug 配置
 安装好 Xdebug3 后，调整关键配置如下:
 ```ini
-; debug 模式可以断点跟踪
+; debug 模式可以断点调试
 xdebug.mode = debug
 ; Xdebug 将连接此 IP 进行调试
 xdebug.client_host = x.x.x.x
@@ -38,7 +38,7 @@ xdebug.trigger_value = my_trigger_value
 ```
 
 ### 1.1.3 验证
-上述配置好之后，在 vscode 中打好断点并启动监听，启动你的 web 服务，在浏览器 / postman 中访问，就可以断点调试了。浏览器 / postman 中访问时须在 Query String 或 FormData 或 COOKIE 中带上 XDEBUG_TRIGGER=my_trigger_value 的参数。
+上述内容配置好之后，在 vscode 中打好断点并启动监听，再启动你的 PHP web 站点，然后在浏览器 / postman 中访问你的站点，就可以断点调试了。用浏览器 / postman 中访问时须在 Query String 或 FormData 或 COOKIE 中带上 XDEBUG_TRIGGER=my_trigger_value 的参数。
 
 本节参考链接：  
 PHP Debug 插件 <https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug>  
@@ -46,8 +46,85 @@ Xdebug 文档 <https://xdebug.org/docs/profiler>
 
 
 ## 1.2 依赖注入
-<http://phptherightway.p2hp.com/#dependency_injection>
+PHP 之道中对依赖注入的解释 <http://phptherightway.p2hp.com/#dependency_injection>
+
+
 ## 1.3 错误和异常
+### 1.3.1 错误
+- 在 PHP7 中，大多数错误被作为 Error 异常抛出，和异常是同样的处理逻辑，这些错误发生时不会触发 set_error_handler() 函数。其余错误可以用 set_error_handler() 接收，接收后我们可以手动抛出一个 ErrorException。
+- A.php 脚本中出现的编译错误无法在 A.php 中捕获。但是， A.php 通过 include/require 载入的文件中出现了编译错误，可以在 A.php 脚本捕获。
+
+错误参考链接：  
+PHP 文档 <https://www.php.net/manual/zh/language.errors.php7.php>  
+再谈 PHP 错误与异常 <https://www.cnblogs.com/zyf-zhaoyafei/p/6928149.html>
+
+### 1.3.2 异常
+异常比较容易处理，在合适的时机用 try-catch 块捕获即可。下面是 PHP 内置的错误和异常，Error 和 Exception 均继承自 Throwable。
+>+ Error
+>    + ArithmeticError
+>        + DivisionByZeroError
+>    + AssertionError
+>    + ParseError
+>    + TypeError
+>        + ArgumentCountError
+>+ Exception
+>    + ClosedGeneratorException
+>    + DOMException
+>    + ErrorException
+>    + IntlException
+>    + LogicException
+>        + BadFunctionCallException
+>            + BadMethodCallException
+>        + DomainException
+>        + InvalidArgumentException
+>        + LengthException
+>        + OutOfRangeException
+>    + PharException
+>    + ReflectionException
+>    + RuntimeException
+>        + OutOfBoundsException
+>        + OverflowException
+>        + PDOException
+>        + RangeException
+>        + UnderflowException
+>        + UnexpectedValueException
+>    + SodiumException
+
+### 1.3.3 错误和异常处理参考
+综上，我们用 set_error_handler(callable $handler) 注册一个函数来接收错误，收到错误后手动抛出一个异常。如此，所有的错误和异常就可以用 try-catch 来处理了。
+
+在程序的尽量最外层（或者最开始）调用以下代码，可以解捕获并处理绝大部分的错误和异常。在此之前发生的错误无法处理，也没必要。
+```php
+set_error_handler(
+    function (
+        int $errno,
+        string $errstr,
+        string $errfile,
+        int $errline
+    ): void {
+        if (!(error_reporting() & $errno)) {
+            return;
+        }
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+    }
+);
+
+try {
+    // 下一步的请求处理
+    $response = $handler->handle($request);
+} catch (Throwable $e) {
+    /**
+     * handleThrowable() 方法可以报告错误并生成错误时的响应对象
+     */
+    $response = $this->handleThrowable($e, $request);
+}
+
+restore_error_handler();
+
+return $response;
+```
+以上代码参考自：  
+laminas/laminas-stratigility <https://github.com/laminas/laminas-stratigility/blob/3.5.x/src/Middleware/ErrorHandler.php>
 
 # 第二章 &nbsp; PHP 框架
 ## 2.0 框架介绍
@@ -135,7 +212,7 @@ $response = $container->call([$bar, 'injectToMethod']);
 PSR-11 说明文档 <https://learnku.com/docs/psr/psr-11-container-meta/1622>
 
 ### 2.1.3 服务提供者
-有些框架将容器叫做服务管理器。执行服务提供者，会将服务类或对象绑定到容器中。在有的框架中，便于直接绑定的服务在配置文件中直接指定，需要执行一些特定方法才能绑定的服务，可以在服务提供者中绑定。服务提供者的本质是将特定的服务绑定到容器中。
+有些框架将容器叫做服务管理器。执行服务提供者，会将服务类或对象绑定到容器中。在有的框架中，便于直接绑定的服务在配置文件中直接指定，需要执行一些特定方法才能绑定的服务，可以在服务提供者中绑定。服务提供者的本质是在一定的时机将特定的服务绑定到容器中。
 
 下面的例子中，由于 Router 服务在创建时需要指定其配置文件的位置，因此，这里手动创建好 Router 对象，再将这个对象绑定到容器。将这个创建过程放到回调中，就可以在真正需要 Router 对象的时候才创建它，以节省资源。
 
@@ -161,7 +238,7 @@ public function register()
 
 ## 2.2 尝试自己写一个简单框架
 ```bash
-composer create-project vivid-lamp/installer
+composer create-project vivid-lamp/installer vivid-skeleton
 ```
 
 
