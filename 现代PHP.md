@@ -1,6 +1,6 @@
 # 第一章 &nbsp; PHP 之道
 ## 1.0 介绍
-PHP 之道是介绍最新的 PHP 最佳实践的网站，其网址是 <https://phptherightway.com/>。最新的中文版网址是 <http://phptherightway.p2hp.com/>
+PHP 之道是介绍最新的 PHP 最佳实践的网站，其网址是 <https://phptherightway.com/>，最新的中文版网址是 <http://phptherightway.p2hp.com/>
 
 本章介绍 PHP 之道中值得关注的概念。
 
@@ -23,7 +23,7 @@ PHP 之道是介绍最新的 PHP 最佳实践的网站，其网址是 <https://p
     }
 ]
 ```
-其中，port 是监听 Xdebug 的端口，pathMapping 是远程文件和本地文件的映射，本地调试无需配置此映射。
+其中，port 是插件监听 Xdebug 的端口，pathMapping 是远程文件和本地文件的映射。本地调试无需配置 pathMapping。
 
 ### 1.1.2 Xdebug 配置
 安装好 Xdebug3 后，调整关键配置如下:
@@ -127,7 +127,17 @@ return $response;
 laminas/laminas-stratigility <https://github.com/laminas/laminas-stratigility/blob/3.5.x/src/Middleware/ErrorHandler.php>
 
 # 第二章 &nbsp; PHP 框架
-## 2.0 框架介绍
+## 2.0 常见 PHP 框架
+|框架|说明|
+|  ----  | ----  |
+|[Laravel](https://laravel.com/)|功能强大，社区活跃|
+|[ThinkPHP](https://www.thinkphp.cn/)|国内比较流行，符合国人习惯|
+|[mezzio](https://docs.mezzio.dev/mezzio/)|前身是 ZendFramework|
+|[symfony](https://symfony.com/)|编程哲学、方法论；其优秀的组件被其他框架广泛使用|
+|[slime](https://www.slimframework.com/)|微型框架|
+|[league](https://www.slimframework.com/)|组件联盟，提供了许多非常优秀的组件|
+|[yii](https://www.yiichina.com/)|高性能、易于扩展|
+|...|...|
 ## 2.1 框架的几个核心概念
 ### 2.1.1 中间件
   
@@ -173,7 +183,7 @@ class Foo {
 
     public function api()
     {
-        return $this->apiFetch->sucess('msg from api', ['data from api']);
+        return $this->apiFetch->success('msg from api', ['data from api']);
     }
 }
 
@@ -196,7 +206,7 @@ class Bar
 {
     public function injectToMethod(ApiFetch $apiFetch)
     {
-        return $apiFetch->sucess('msg from injectToMethod.', ['data from injectToMethod.']);
+        return $apiFetch->success('msg from injectToMethod.', ['data from injectToMethod.']);
     }
 }
 

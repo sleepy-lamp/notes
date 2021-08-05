@@ -50,23 +50,27 @@
 // phpinfo();
 
 
-$a = new Class {
-    protected $pro;
-    public function dumpPro()
-    {
-        var_dump($this->pro);
-    }
-};
+// $a = new Class {
+//     protected $pro;
+//     public function dumpPro()
+//     {
+//         var_dump($this->pro);
+//     }
+// };
 
-$modifyPro = function() {
-    $this->pro = 'modified';
-    return 'return';
-};
+// $modifyPro = function() {
+//     $this->pro = 'modified';
+//     return 'return';
+// };
 
-$b = $modifyPro->call($a);
+// $b = $modifyPro->call($a);
 
-var_dump($a);
+// var_dump($a);
 
-$a->dumpPro();
+// $a->dumpPro();
+
+// echo sprintf('%b',  -9);
+
+// var_dump(~9);
 
 
