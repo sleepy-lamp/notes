@@ -41,8 +41,8 @@ xdebug.trigger_value = my_trigger_value
 上述内容配置好之后，在 vscode 中打好断点并启动监听，再启动你的 PHP web 站点，然后在浏览器 / postman 中访问你的站点，就可以断点调试了。用浏览器 / postman 中访问时须在 Query String 或 FormData 或 COOKIE 中带上 XDEBUG_TRIGGER=my_trigger_value 的参数。
 
 本节参考链接：  
-PHP Debug 插件 <https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug>  
-Xdebug 文档 <https://xdebug.org/docs/profiler>
+vscode 的 PHP Debug 插件 <https://marketplace.visualstudio.com/items?itemName=felixfbecker.php-debug>  
+PHP 的 Xdebug 扩展 文档 <https://xdebug.org/docs/profiler>
 
 
 ## 1.2 依赖注入
@@ -222,9 +222,9 @@ $response = $container->call([$bar, 'injectToMethod']);
 PSR-11 说明文档 <https://learnku.com/docs/psr/psr-11-container-meta/1622>
 
 ### 2.1.3 服务提供者
-有些框架将容器叫做服务管理器。执行服务提供者，会将服务类或对象绑定到容器中。在有的框架中，便于直接绑定的服务在配置文件中直接指定，需要执行一些特定方法才能绑定的服务，可以在服务提供者中绑定。服务提供者的本质是在一定的时机将特定的服务绑定到容器中。
+有些框架将容器叫做服务管理器，服务提供者用来给服务管理器提供服务。在有的框架中，便于直接绑定的服务在配置文件中直接指定，需要执行一些特定方法才能绑定的服务，可以在服务提供者中绑定。服务提供者的本质是在一定的时机将特定的服务绑定到容器中。
 
-下面的例子中，由于 Router 服务在创建时需要指定其配置文件的位置，因此，这里手动创建好 Router 对象，再将这个对象绑定到容器。将这个创建过程放到回调中，就可以在真正需要 Router 对象的时候才创建它，以节省资源。
+下面的例子中，由于 Router 服务在创建时需要指定其配置文件的位置，因此，这里手动创建好 Router 对象，再将这个对象绑定到容器。这里将创建过程放到回调中，就可以在真正需要 Router 对象的时候才执行回调去创建它，以节省资源。
 
 ```php
 public function register()
