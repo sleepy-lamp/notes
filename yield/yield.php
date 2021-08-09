@@ -364,7 +364,7 @@ function task()
 }
 function server($port) {
     echo "Starting server at port $port...\n";
-    $socket = @stream_socket_server("tcp://localhost:$port", $errNo, $errStr);
+    $socket = @stream_socket_server("tcp://0.0.0.0:$port", $errNo, $errStr);
     if (!$socket) throw new Exception($errStr, $errNo);
     stream_set_blocking($socket, 0);
     while (true) {
@@ -375,21 +375,16 @@ function server($port) {
 }
 function handleClient($socket) {
     yield waitForRead($socket);
-    $data = fread($socket, 8192);
-    $msg = "Received following request:\n\n$data";
+    // $data = fread($socket, 8192);
+    $msg = "abc";
     $msgLength = strlen($msg);
-    $response = <<<res
-HTTP/1.1 200 OK\r
-Content-Type: text/plain\r
-Content-Length: $msgLength\r
-Connection: close\r
-\r
-$msg
-res;
+    $response = "HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: $msgLength\r\nConnection: close\r\n\r\n$msg";
+
     yield waitForWrite($socket);
     fwrite($socket, $response);
-    fclose($socket);
+    
+    // fclose($socket);
 }
 $scheduler = new Scheduler;
-$scheduler->newTask(server(8000));
+$scheduler->newTask(server(8104));
 $scheduler->run();

@@ -72,5 +72,6 @@
 // echo sprintf('%b',  -9);
 
 // var_dump(~9);
+echo 123;
 
 
