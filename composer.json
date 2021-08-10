@@ -2,11 +2,13 @@
     "require": {
         "psr/http-server-handler": "^1.0",
         "psr/http-server-middleware": "^1.0",
-        "laminas/laminas-diactoros": "^2.6",
         "illuminate/container": "^8.51",
         "psr/event-dispatcher": "^1.0",
       "ext-sockets": "*",
-      "php": "7.4"
+      "php": "^7.3",
+        "react/event-loop": "1.2.0",
+        "laminas/laminas-diactoros": "^2.6",
+        "react/http": "^1.5.0"
     },
 
     "autoload": {
