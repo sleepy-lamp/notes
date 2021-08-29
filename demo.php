@@ -72,6 +72,51 @@
 // echo sprintf('%b',  -9);
 
 // var_dump(~9);
-echo 123;
+//$a = 1;
+//
+//$b = 2;
+//
+//$c = 3;
+//
+//echo $a + $b;
+
+//require __DIR__ . '/vendor/autoload.php';
+//
+//$request =  Laminas\Diactoros\ServerRequestFactory::fromGlobals(
+//    $_SERVER,
+//    $_GET,
+//    $_POST,
+//    $_COOKIE,
+//    $_FILES
+//);
+
+
+
+require __DIR__ . '/vendor/autoload.php';
+
+
+$proxy = new Clue\React\HttpProxy\ProxyConnector('http://127.0.0.1:8100');
+
+
+$connector = new React\Socket\Connector(array(
+    'tcp' => $proxy,
+    'dns' => false
+));
+
+$browser = new React\Http\Browser($connector);
+
+//$browser->get('https://google.com/')->then(function (Psr\Http\Message\ResponseInterface $response) {
+//    var_dump($response->getHeaders(), (string) $response->getBody());
+//}, function (Exception $e) {
+//    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+//});
+
+$browser->post(
+    'http://baidu.com/',
+    ['Content-Type' => 'application/json'],
+    json_encode([1,2,3])
+)->then(function (Psr\Http\Message\ResponseInterface $response) {
+    var_dump($response->getHeaders(), (string) $response->getBody());
+});
 
 

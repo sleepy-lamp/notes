@@ -3,6 +3,9 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 $http = new React\Http\HttpServer(function (Psr\Http\Message\ServerRequestInterface $request) {
+
+    var_dump($request);
+
     return new React\Http\Message\Response(
         200,
         array(

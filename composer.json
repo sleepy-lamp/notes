@@ -5,15 +5,22 @@
         "illuminate/container": "^8.51",
         "psr/event-dispatcher": "^1.0",
       "ext-sockets": "*",
+      "ext-event": "3.*",
       "php": "^7.3",
         "react/event-loop": "1.2.0",
         "laminas/laminas-diactoros": "^2.6",
-        "react/http": "^1.5.0"
+        "react/http": "^1.5.0",
+        "amphp/amp": "^2.6",
+        "clue/http-proxy-react": "^1.7",
+      "ext-json": "*"
     },
 
     "autoload": {
         "psr-4": {
             "PsrImplement\\": "PSR-implement"
         }
+    },
+    "require-dev": {
+        "paulxu-cn/event-ide-helper": "^0.1.0"
     }
 }
