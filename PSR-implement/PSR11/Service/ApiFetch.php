@@ -7,7 +7,7 @@ use Laminas\Diactoros\Response;
 
 class ApiFetch
 {
-    public function sucess($msg = '', $data = null)
+    public function success($msg = '', $data = null)
     {
         return $this->result($msg, 0, $data);
     }

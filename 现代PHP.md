@@ -273,6 +273,67 @@ public function register()
 composer create-project vivid-lamp/installer vivid-skeleton
 ```
 
+## 2.3 用中间件思想组织的框架
+   
+# 第三章 异步与协程
 
+## 3.0 传统 php-fpm 的问题
++ 一个进程服务一个用户，并发数量取决于进程数量
++ 同步阻塞
++ 创建一切，销毁一切
+## 3.1 异步编程
+### 3.1.1 IO 复用
+>目前常见的IO多路复用方案有select、poll、epoll、kqueue.
+>+ select 是*NIX出现较早的IO复用方案，有较大缺陷
+>+ poll 是select的升级版，但依然属于新瓶旧酒
+>+ epoll 是*NIX下终极解决方案，而kqueue则是Mac、BSD下同级别的方案
+### 3.1.2 ext-event
+libevent For PHP
+参考代码 examples/0-ext-event.php
+### 3.1.3 ReactPHP
+> ReactPHP 是一个用于PHP中事件驱动编程的底层库。其核心是一个事件循环，在此基础上，它提供了低级实用工具，如：流抽象、异步 DNS 解析器、网络客户端/服务器、HTTP 客户端/服务器以及与进程的交互。第三方库可以使用这些组件来创建异步网络客户端/服务器等等。
 
-# 第三章 Swoole 与协程
+ReactPHP Http 配合 friends-of-reactphp/mysql 实现异步非阻塞的 Http 服务，参考代码 examples/1-reactphp-http-server.php
+
+## 3.2 迭代生成器配合 Promise 实现协程
+### 3.2.1 yield 生成器
+需要理解清楚 yield 生成器的进进出出。
+```php
+<?php
+$generation = (function() {
+    $bar = 'a';
+    $a = yield $bar;
+    echo $a, PHP_EOL;
+    $b = yield 'b';
+    echo $b, PHP_EOL;
+    $c = yield 'c';
+    echo $c, PHP_EOL;
+})();
+
+$i = 0;
+
+echo $generation->current(), PHP_EOL;
+
+echo $generation->send($i++), PHP_EOL;
+echo $generation->send($i++), PHP_EOL;
+$generation->send($i++);
+
+// 执行结果：
+// a
+// 0
+// b
+// 1
+// c
+// 2
+```
+从生成器往外返出 3 个值，分别是 a, b, c。从外面往生成器发送了三个值分别是 1, 2, 3。
+### 3.2.2 yield 实现协程
+参考代码 examples/3-reactphp-http-server-yield.php
+
+参考链接：  
+老李秀网络编程系列博客 <https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU4MjgzNzk5MA==&action=getalbum&album_id=1555216066405023744&scene=173&from_msgid=2247484575&from_itemidx=1&count=3&nolastread=1#wechat_redirect>  
+风雪之隅 <https://www.laruence.com/2015/05/28/3038.html>  
+PHP ext-event <https://www.php.net/manual/zh/class.event.php>  
+ReactPHP <https://reactphp.org/>  
+amp <https://amphp.org/>  
+Javascript 异步编程的 4 种方法 <https://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html>

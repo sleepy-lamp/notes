@@ -1,6 +1,6 @@
 <?php
 
-namespace PsrImplement\PSR15\middlewares;
+namespace PsrImplement\PSR15\Middlewares;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
