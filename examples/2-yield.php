@@ -1,6 +1,6 @@
 <?php
 
-$generation = (function() {
+$generation = (function () {
     $bar = 'a';
     $a = yield $bar;
     echo $a, PHP_EOL;
