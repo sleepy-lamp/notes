@@ -330,7 +330,7 @@ $generation->send($i++);
 ### 3.2.2 yield 实现协程
 参考代码 examples/3-reactphp-http-server-yield.php
 
-参考链接：  
+本章参考链接：  
 老李秀网络编程系列博客 <https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU4MjgzNzk5MA==&action=getalbum&album_id=1555216066405023744&scene=173&from_msgid=2247484575&from_itemidx=1&count=3&nolastread=1#wechat_redirect>  
 风雪之隅 <https://www.laruence.com/2015/05/28/3038.html>  
 PHP ext-event <https://www.php.net/manual/zh/class.event.php>  

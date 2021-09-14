@@ -1,5 +1,20 @@
 <?php
 
+error_reporting(E_ALL);
+
+set_error_handler(
+    function (
+        int $errno,
+        string $errstr,
+        string $errfile,
+        int $errline
+    ): void {
+        if (!(error_reporting() & $errno)) {
+            return;
+        }
+        throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+    }
+);
 
 $s_host = '0.0.0.0';
 $i_port = 8001;
@@ -36,20 +51,26 @@ $o_event = new Event(
 
         $r_connect_socket = socket_accept($r_listen_socket);
 
-
         $o_event = new Event(
             $o_event_base,
             $r_connect_socket,
             Event::READ | Event::PERSIST,
-            function($r_connect_socket)
-            {
+            function ($r_connect_socket, $r_event_flag) {
+                global $a_event_array, $a_client_array;
                 $s_content = socket_read($r_connect_socket, 1024);
                 echo $s_content;
-                socket_write(
-                    $r_connect_socket,
-                    "HTTP/1.1 200 OK\r\nConnection: keep-alive\r\nContent-Type: text/plain\r\nContent-Length: 5\r\n\r\nHello"
-                );
-//                socket_close($r_connect_socket);
+
+                try {
+                    socket_write(
+                        $r_connect_socket,
+                        "HTTP/1.1 200 OK\r\nConnection: keep-alive\r\nContent-Type: text/plain\r\nContent-Length: 5\r\n\r\nHello"
+                    );
+                } catch (Exception $e) {
+                    unset($a_client_array[intval($r_connect_socket)]);
+                    unset($a_event_array[intval($r_connect_socket)]);
+                }
+
+                //    socket_close($r_connect_socket);
 
             }
         );
@@ -59,9 +80,9 @@ $o_event = new Event(
         socket_getpeername($r_connect_socket, $address, $port);
         echo $address, ' ', $port, PHP_EOL;
 
-        $a_client_array[] = $r_connect_socket;
+        $a_client_array[intval($r_connect_socket)] = $r_connect_socket;
 
-        $a_event_array[] = $o_event;
+        $a_event_array[intval($r_connect_socket)] = $o_event;
     },
     $o_event_base
 );

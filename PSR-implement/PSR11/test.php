@@ -27,7 +27,7 @@ class Foo
 
     public function api()
     {
-        return $this->apiFetch->sucess('msg from api.', ['data from api.']);
+        return $this->apiFetch->success('msg from api.', ['data from api.']);
     }
 }
 
@@ -36,7 +36,7 @@ class Bar
 {
     public function injectToMethod(ApiFetch $apiFetch)
     {
-        return $apiFetch->sucess('msg from injectToMethod.', ['data from injectToMethod.']);
+        return $apiFetch->success('msg from injectToMethod.', ['data from injectToMethod.']);
     }
 }
 

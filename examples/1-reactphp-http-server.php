@@ -8,7 +8,7 @@ $http = new React\Http\HttpServer(function (Psr\Http\Message\ServerRequestInterf
 
 
     $factory = new React\MySQL\Factory();
-    $connection = $factory->createLazyConnection('root:123456@localhost/demo');
+    $connection = $factory->createLazyConnection('root:123456@localhost/demo-zlh');
 
     $stream = new \React\Stream\ThroughStream();
 
