@@ -273,7 +273,10 @@ public function register()
 composer create-project vivid-lamp/installer vivid-skeleton
 ```
 
-## 2.3 用中间件思想组织的框架
+## 2.3 尝试用中间件思想组织一个框架
+```bash
+composer create-project vivid-lamp/pipe-skeleton
+```
    
 # 第三章 异步与协程
 
