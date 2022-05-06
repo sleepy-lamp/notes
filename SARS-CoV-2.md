@@ -23,7 +23,11 @@ https://onlinelibrary.wiley.com/doi/10.1111/imm.13443
 
 
 长 COVID-19 的神经系统表现背后的微血管假说和可能的治疗策略  
-https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8575441/
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8575441/  
+
+SARS CoV‐2 related microvascular damage and symptoms during and after COVID‐19: Consequences of capillary transit‐time changes, tissue hypoxia and inflammation  
+COVID - 19期间和之后与SARS冠状病毒2相关的微血管损伤和 症状:毛细血管迁移时间变化、组织缺氧和炎症的后果  
+https://pubmed.ncbi.nlm.nih.gov/33523608/
 
 Long COVID: The Nature of Thrombotic Sequelae Determines the Necessity of Early Anticoagulation  
 长时间COVID:血栓后遗症的性质决定了早期抗凝的必要性  
