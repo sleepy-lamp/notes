@@ -22,7 +22,14 @@ COVID-19 疫苗接种后新发的自身免疫现象
 https://onlinelibrary.wiley.com/doi/10.1111/imm.13443  
 
 
-长 COVID-19 的神经系统表现背后的微血管假说和可能的治疗策略
+长 COVID-19 的神经系统表现背后的微血管假说和可能的治疗策略  
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8575441/
 
-https://zhuanlan.zhihu.com/p/362486864  
+Long COVID: The Nature of Thrombotic Sequelae Determines the Necessity of Early Anticoagulation  
+长时间COVID:血栓后遗症的性质决定了早期抗凝的必要性  
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9016198/
+
+
+Sulodexide significantly improves endothelial dysfunction and alleviates chest pain and palpitations in Long-COVID 19 patients: Insights from TUN-EndCOV study  
+Sulodexide 显着改善内皮功能障碍并减轻 Long-COVID 19 患者的胸痛和心悸：来自 TUN-EndCOV 研究的见解 
+https://www.frontiersin.org/articles/10.3389/fcvm.2022.866113/full
