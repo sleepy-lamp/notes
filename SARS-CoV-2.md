@@ -37,3 +37,26 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9016198/
 Sulodexide significantly improves endothelial dysfunction and alleviates chest pain and palpitations in Long-COVID 19 patients: Insights from TUN-EndCOV study  
 Sulodexide 显着改善内皮功能障碍并减轻 Long-COVID 19 患者的胸痛和心悸：来自 TUN-EndCOV 研究的见解 
 https://www.frontiersin.org/articles/10.3389/fcvm.2022.866113/full
+
+
+America's Frontline Doctors  
+https://americasfrontlinedoctors.org/
+
+FLCCC (Front Line COVID-19 Critical Care Alliance)
+FLCCC官网  
+https://covid19criticalcare.com/zh-CN/
+
+疫苗接种后治疗方案  
+https://covid19criticalcare.com/zh-TW/covid-19%E5%8D%94%E8%AD%B0/%E6%88%91%E5%9C%A8%E7%96%AB%E8%8B%97%E6%B2%BB%E7%99%82%E5%BE%8C%E6%81%A2%E5%BE%A9/
+
+伊维菌素在Covid-19的使用  
+https://covid19criticalcare.com/ivermectin-in-covid-19/
+
+COVID-19 治疗指南  
+https://covid19criticalcare.com/wp-content/uploads/2020/12/FLCCC-Protocols-%E2%80%93-A-Guide-to-the-Management-of-COVID-19.pdf
+
+COVID-19 长期症状治疗方案  
+https://covid19criticalcare.com/covid-19-protocols/i-recover-long-covid-treatment/
+
+刺突蛋白排毒要点  
+https://worldcouncilforhealth.org/resources/spike-protein-detox-guide/
