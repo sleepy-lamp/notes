@@ -1,4 +1,5 @@
 {
+    "minimum-stability":"dev",
     "require": {
         "psr/http-server-handler": "^1.0",
         "psr/http-server-middleware": "^1.0",
@@ -6,14 +7,14 @@
         "psr/event-dispatcher": "^1.0",
       "ext-sockets": "*",
       "ext-event": "3.*",
-      "php": "^7.3",
+      "php": "^8.1",
         "react/event-loop": "1.2.0",
-        "laminas/laminas-diactoros": "^2.6",
         "react/http": "^1.5.0",
         "amphp/amp": "^2.6",
         "clue/http-proxy-react": "^1.7",
       "ext-json": "*",
-        "react/mysql": "^0.5.5"
+        "react/mysql": "^0.5.5",
+        "react/promise-timer": "^1.8"
     },
 
     "autoload": {
