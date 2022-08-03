@@ -60,3 +60,12 @@ https://covid19criticalcare.com/covid-19-protocols/i-recover-long-covid-treatmen
 
 刺突蛋白排毒要点  
 https://worldcouncilforhealth.org/resources/spike-protein-detox-guide/
+
+将 L-精氨酸与维生素 C 结合可改善长期 COVID 症状：全国多中心 LINCOLN 研究  
+https://www.sciencedirect.com/science/article/pii/S104366182200305X
+
+长 COVID 和长链脂肪酸 (LCFA)：omega-3 LCFA 在 COVID-19 延迟后果中的心理神经免疫意义  
+https://www.sciencedirect.com/science/article/pii/S0889159122000952
+
+用羊水来源的细胞外囊泡生物制剂治疗 COVID-19 长途运输车  
+https://www.sciencedirect.com/science/article/pii/S2213007121001647
