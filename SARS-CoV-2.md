@@ -69,3 +69,9 @@ https://www.sciencedirect.com/science/article/pii/S0889159122000952
 
 用羊水来源的细胞外囊泡生物制剂治疗 COVID-19 长途运输车  
 https://www.sciencedirect.com/science/article/pii/S2213007121001647
+
+通过免疫分析确定的 Long COVID 的显着特征  
+https://www.medrxiv.org/content/10.1101/2022.08.09.22278592v1.full-text
+
+具有持续 Long-COVID-19 症状的患者中针对 G 蛋白偶联受体的功能性自身抗体  
+https://www.sciencedirect.com/science/article/pii/S2589909021000204
