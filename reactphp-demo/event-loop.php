@@ -6,6 +6,13 @@ use React\Promise\Promise;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$beginTime = time();
+
+$fun = getopt('f:')['f'] ?? null;
+
+if (!empty($fun) && function_exists($fun)) {
+    $fun();
+}
 
 function a()
 {
@@ -275,6 +282,16 @@ function m()
     $loop->run();
 }
 
+function getLoop()
+{
+    static $loop;
+    if (!$loop) {
+        $loop = new ExtEventLoop();
+    }
+    
+    return $loop;
+}
+
 function n()
 {
 
@@ -316,15 +333,7 @@ function n()
         }
     }
 
-    function getLoop()
-    {
-        static $loop;
-        if ($loop) {
-            return $loop;
-        }
-        $loop = new ExtEventLoop();
-        return $loop;
-    }
+
 
 
     for ($i = 0; $i < 500; $i++) {
@@ -348,18 +357,6 @@ function n()
 
 function o()
 {
-
-    function getLoop()
-    {
-        static $loop;
-        if ($loop) {
-            return $loop;
-        }
-        $loop = new ExtEventLoop();
-        return $loop;
-    }
-
-
     function waiter($type, $stream, $content = '')
     {
         $loop = getLoop();
@@ -407,4 +404,98 @@ function o()
 
     getLoop()->run();
 }
+
+
+function p()
+{
+
+    function write($stream, $content)
+    {
+        $loop = getLoop();
+        $fiber = Fiber::getCurrent();
+        $request = $content;
+
+        $loop->addWriteStream($stream, function () use ($fiber, $loop, $stream, &$request) {
+            $written = fwrite($stream, $request);
+            if ($written === strlen($request)) {
+                $loop->removeWriteStream($stream);
+                $fiber->resume();
+            }
+            $request = substr($request, $written);
+        });
+
+        return Fiber::suspend();
+    }
+
+
+    function read($stream)
+    {
+        $loop = getLoop();
+        $fiber = Fiber::getCurrent();
+
+        $loop->addReadStream($stream, function () use ($fiber, $stream, $loop) {
+            $response = fread($stream, 2000);
+            $fiber->resume($response);
+            $loop->removeReadStream($stream);
+        });
+
+        return $fiber->suspend();
+    }
+
+
+    $j = 0;
+    for ($i = 0; $i < 40; $i++) {
+
+        $fiber = new Fiber(function () use ($i, &$j) {
+            $stream = stream_socket_client("www.vivid-light.ml:80", $errno, $errstr, 30, STREAM_CLIENT_ASYNC_CONNECT);
+
+            // echo "No.", $i, ' ';
+
+            write($stream, "GET /$i HTTP/1.1\r\nHost: www.vivid-light.ml\r\n\r\n");
+
+            $response = read($stream);
+
+            // echo "No.", $i, $response;
+
+            echo "\r", $j++;
+
+            fclose($stream);
+        });
+
+        $fiber->start();
+    }
+
+    getLoop()->run();
+}
+
+function q()
+{
+    $j = 0;
+    $curl = curl_init();
+    for ($i = 0; $i < 40; $i++) {
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'www.vivid-light.ml',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => false,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Cookie: XDEBUG_SESSION=PHPSTORM'
+            ),
+        ));
+    
+        $response = curl_exec($curl);
+        // echo "No.", $i, $response;
+        echo "\r", $j++;
+    }
+    curl_close($curl);
+}
+
+
+
+
+echo PHP_EOL, 'time: ', time() - $beginTime;
 

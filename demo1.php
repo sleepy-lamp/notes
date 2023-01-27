@@ -153,6 +153,58 @@
 
 // var_dump($arr);
 
+// function a ($arr) {
+
+//     usort($arr, function($a, $b) {
+//         return strlen($a) - strlen($b);
+//     });
+
+//     return array_slice($arr, 0, 5);
+// }
+
+// $redis = new Redis();
+// $redis->connect('localhost', 6379);
+
+// // $redis->set('name', 'php');
+
+// $redis->subscribe(['chat'], function($redis, $chan, $msg) {
+//     echo $msg;
+//     if ($msg === 'end') {
+//         exit('exit end');
+//     }
+// });
+
+// echo 'abc';
 
 
+// sudo redis-cli --cluster create --cluster-replicas 1 \
+//  127.0.0.1:7000 \
+//  127.0.0.1:7001 \
+//  127.0.0.1:7002 \
+//  127.0.0.1:8000 \
+//  127.0.0.1:8001 \
+//  127.0.0.1:8002
 
+
+// class CacheManager {
+//     static function remeber($key, Closure $valueClosure, $timeout) {
+//         $redis = new Redis();
+//         try {
+//             $foo = $redis->get($key);
+//             if ($foo === false) {
+//                 $foo = $valueClosure($key);
+//                 $redis->set($key, $foo, $timeout);
+//             }
+    
+//         } catch (Exception $e) {
+//             // mysql error log and/or redis error log
+//         }
+//         return $foo;
+
+//     }
+// }
+// $a = 1;
+
+date_default_timezone_set('Asia/Shanghai');
+$date = new DateTime();
+var_dump($date->getTimezone());aaaa

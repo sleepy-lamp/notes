@@ -92,31 +92,52 @@
 
 
 
-require __DIR__ . '/vendor/autoload.php';
+// require __DIR__ . '/vendor/autoload.php';
 
 
-$proxy = new Clue\React\HttpProxy\ProxyConnector('http://127.0.0.1:8100');
+// $proxy = new Clue\React\HttpProxy\ProxyConnector('http://127.0.0.1:8100');
 
 
-$connector = new React\Socket\Connector(array(
-    'tcp' => $proxy,
-    'dns' => false
-));
+// $connector = new React\Socket\Connector(array(
+//     'tcp' => $proxy,
+//     'dns' => false
+// ));
 
-$browser = new React\Http\Browser($connector);
+// $browser = new React\Http\Browser($connector);
 
-//$browser->get('https://google.com/')->then(function (Psr\Http\Message\ResponseInterface $response) {
-//    var_dump($response->getHeaders(), (string) $response->getBody());
-//}, function (Exception $e) {
-//    echo 'Error: ' . $e->getMessage() . PHP_EOL;
-//});
+// //$browser->get('https://google.com/')->then(function (Psr\Http\Message\ResponseInterface $response) {
+// //    var_dump($response->getHeaders(), (string) $response->getBody());
+// //}, function (Exception $e) {
+// //    echo 'Error: ' . $e->getMessage() . PHP_EOL;
+// //});
 
-$browser->post(
-    'http://baidu.com/',
-    ['Content-Type' => 'application/json'],
-    json_encode([1,2,3])
-)->then(function (Psr\Http\Message\ResponseInterface $response) {
-    var_dump($response->getHeaders(), (string) $response->getBody());
-});
+// $browser->post(
+//     'http://baidu.com/',
+//     ['Content-Type' => 'application/json'],
+//     json_encode([1,2,3])
+// )->then(function (Psr\Http\Message\ResponseInterface $response) {
+//     var_dump($response->getHeaders(), (string) $response->getBody());
+// });
+
+
+// $http = new React\Http\HttpServer(function (Psr\Http\Message\ServerRequestInterface $request) {
+//     var_dump($request->getHeaders());
+//     return React\Http\Message\Response::plaintext(
+//         "Hello World!\n"
+//     );
+// });
+
+// $socket = new React\Socket\SocketServer('0.0.0.0:8080');
+// $http->listen($socket);
+
+use function PHPSTORM_META\type;
+
+try {
+    require 'demo1.php';
+} catch(Throwable $e) {
+    var_dump(get_class($e));
+}
+
+
 
 
