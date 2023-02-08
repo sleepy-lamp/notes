@@ -1,4 +1,4 @@
-/*! For license information please see app.bundle.0f76d48637b895881d63.js.LICENSE.txt */
+/*! For license information please see app.bundle.c137be97924c3d35d7e1.js.LICENSE.txt */
 (function() {
     var __webpack_modules__ = {
         4431: function(A, e, t) {
@@ -8998,19 +8998,7 @@
             function iPad() {
                 return !!navigator.userAgent.match(/iPad/i)
             }
-            var QueryString = function() {
-                for (var A = {}, e = window.location.search.substring(1).split("&"), t = 0; t < e.length; t++) {
-                    var n = e[t].split("=");
-                    if (void 0 === A[n[0]])
-                        A[n[0]] = decodeURIComponent(n[1]);
-                    else if ("string" == typeof A[n[0]]) {
-                        var r = [A[n[0]], decodeURIComponent(n[1])];
-                        A[n[0]] = r
-                    } else
-                        A[n[0]].push(decodeURIComponent(n[1]))
-                }
-                return A
-            }();
+            var SearchParams = new URLSearchParams(location.search);
             function isScrollEnd(A) {
                 return A.scrollHeight - A.scrollTop >= A.offsetHeight
             }
@@ -9030,7 +9018,6 @@
                 }
             }
             function insertParam(A, e) {
-                debugger;
                 const t = new URLSearchParams(location.search);
                 t.append(A, e),
                 history.replaceState("", "", location.pathname + "?" + t.toString() + location.hash)
@@ -9084,7 +9071,7 @@
                     this.$wrapper.addClass("no-scroll"),
                     $("body").addClass("no-scroll")),
                     this.isEmbed()) {
-                        var A = QueryString.embedHeight;
+                        var A = SearchParams.get("embedHeight");
                         A && $("body").height(A),
                         this.postSizeData(),
                         this.bindResizeToWrapper(),
@@ -9128,7 +9115,7 @@
                 fixStyleOnIPad() {
                     window.innerWidth > SCREEN_WIDTH && this.$readyForSignupButton.addClass("fixed")
                 },
-                isEmbed: ()=>"1" === QueryString.embed,
+                isEmbed: ()=>"1" === SearchParams.get("embed"),
                 checkExpend() {
                     for (var A = [], e = this.$textWrap.find("p"), t = 0; t < A.length; t += 1)
                         "" !== e[t].innerText.trim() && A.push(e[t]);
@@ -9163,7 +9150,7 @@
                         $("#detailControlButton").addClass("lx-hidden")
                 },
                 autoPopup() {
-                    ("1" === QueryString.show_signup_form || this.$formContainer.hasClass("auto-popup")) && this.showForm()
+                    ("1" === SearchParams.get("show_signup_form") || this.$formContainer.hasClass("auto-popup")) && this.showForm()
                 },
                 bind() {
                     return this.bindShowForm().bindHideForm().bindExpend().bindScroll().bindScrollTop().bindProtocol().bindPayEvent(),
@@ -9434,7 +9421,7 @@
                 isPayAction() {
                     return this.$readyForSignupButton.hasClass("not-free")
                 },
-                shouldShowPayWindow: ()=>"1" === QueryString[DO_PAY],
+                shouldShowPayWindow: ()=>"1" === SearchParams.get(DO_PAY),
                 addPayParameters() {
                     insertParam(DO_PAY, 1)
                 },
@@ -9442,6 +9429,7 @@
                     removeParam(DO_PAY)
                 },
                 showPayStatusWindow() {
+                    alert(this.$payConfirmBox)
                     this.$payConfirmBox.removeClass("lx-hidden")
                 },
                 hidePayStatusWindow() {
